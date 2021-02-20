@@ -2,18 +2,23 @@ from sys import *
 n = int(stdin.readline())
 lst_time = []
 lst_distance = []
-lst_speeds = []
 for j in range(n):
     time, distance = map(int, stdin.readline().split())
     lst_time.append(time)
     lst_distance.append(distance)
-lst_time_sorted = sorted(lst_time)
-new_list_distance = [lst_distance[lst_time.index(lst_time_sorted[0])]]
+#lst_time_sorted = sorted(lst_time)
+#new_list_distance = [lst_distance[lst_time.index(lst_time_sorted[0])]]
+
+lst_time, lst_distance = (list(x) for x in zip(*sorted(zip(lst_time, lst_distance))))
+
 max_speed = 0
-lower_index = lst_distance[lst_time.index(lst_time_sorted[0])]
+#lower_index = lst_distance[lst_time.index(lst_time_sorted[0])]
+lower_index = lst_distance[0]
 for i in range(1, n):
-    upper_index = lst_distance[lst_time.index(lst_time_sorted[i])]
-    speed = abs((upper_index - lower_index) / (lst_time_sorted[i] - lst_time_sorted[i-1]))
+    #upper_index = lst_distance[lst_time.index(lst_time_sorted[i])]
+    upper_index = lst_distance[i]
+    #speed = abs((upper_index - lower_index) / (lst_time_sorted[i] - lst_time_sorted[i-1]))
+    speed = abs((upper_index - lower_index) / (lst_time[i] - lst_time[i-1]))
     if speed > max_speed:
         max_speed = speed
     lower_index = upper_index
